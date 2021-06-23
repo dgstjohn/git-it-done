@@ -10,13 +10,13 @@ var formSubmitHandler = function (event) {
 
     if (username) {
         getUserRepos(username);
+        repoContainerEl.textContent = '';
         nameInputEl.value = "";
     } else {
         alert("Please enter a GitHub username");
     }
 };
 
-userFormEl.addEventListener("submit", formSubmitHandler);
 
 var getUserRepos = function (user) {
     // format the GitHub API URL
@@ -47,7 +47,7 @@ var displayRepos = function (repos, searchTerm) {
         return;
     };
     // clear old content
-    repoContainerEl.textContent = "";
+    // repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
     // loop over repos
     for (var i = 0; i < repos.length; i++) {
@@ -77,9 +77,12 @@ var displayRepos = function (repos, searchTerm) {
             statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
         }
 
+        // append to container
+        repoEl.appendChild(statusEl);
+
         // append container to the dom
         repoContainerEl.appendChild(repoEl);
     }
 };
 
-// getUserRepos("");
+userFormEl.addEventListener("submit", formSubmitHandler);
